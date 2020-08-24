@@ -11,7 +11,7 @@ namespace Dan_LV_Milos_Peric.Model
     {
         List<Ingredients> ingredientsList = new List<Ingredients>();
         public string Size { get; set; }
-        public decimal TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
 
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dan_LV_Milos_Peric.View"
         mc:Ignorable="d"
-        Title="PizzaOrderMainView" Height="450" Width="760" Background="#FF494978" WindowStartupLocation="CenterScreen">
+        Title="PizzaOrderMainView" Height="450" Width="750" Background="#FF559B85" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin"            Value="0,0,10,0" />
@@ -18,11 +18,25 @@
 
     </Window.Resources>
 
-    <Grid>
+    <Grid Width="750" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="75" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
@@ -30,22 +44,64 @@
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"  Orientation="Horizontal" HorizontalAlignment="Center" >
-            <Label Content="Employee Menu" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="14" FontWeight="Bold"/>
+        <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"  Content="Pizza Creator" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFE6D858" FontSize="18" FontWeight="Bold"/>
+        <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"  Content="Choose Ingredients" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="13" FontWeight="Bold"/>
+        <Label Grid.Row="2" Grid.Column="1"  Content="Choose Pizza Size" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="13" FontWeight="Bold"/>
+        <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding PizzaSize, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding Size, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="{Binding IsEnabled}"
+                  Name="cbPizzaSize" Width="150" Height="25" Text="Choose Recipe Type" IsEditable="False" >
+        </ComboBox>
 
-        </StackPanel>
-        <StackPanel Grid.Row="0"  Orientation="Vertical" HorizontalAlignment="Right" Grid.RowSpan="2">
-            <TextBlock Text="Currently logged in as:" Foreground="White" Margin="0 0 30 0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock Text="{Binding Employee.UserName, UpdateSourceTrigger=PropertyChanged}" Foreground="#FFD65630" FontWeight="Bold" Margin="30 0 30 0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock Text="Work Type:" Foreground="White" Margin="0 0 30 0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock Text="{Binding Employee.WorkType, UpdateSourceTrigger=PropertyChanged}" Foreground="#FFD65630" FontWeight="Bold" Margin="30 0 30 0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock Text="Floor Number:" Foreground="White" Margin="0 0 30 0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-            <TextBlock Text="{Binding Employee.FloorNumber, UpdateSourceTrigger=PropertyChanged}" Foreground="#FFD65630" FontWeight="Bold" Margin="50 0 30 0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-        </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Command="{Binding AddItemCommand}" Content="Button" Width="Auto" Height="30"/>
-            <Button Command="{Binding LogoutCommand}" Content="Logout" Width="Auto" Height="30"/>
-        </StackPanel>
+        <Label Grid.Row="2" Grid.Column="4"  Content="Total Price: $" VerticalAlignment="Center" Margin="0 0 20 0" HorizontalAlignment="Center" Foreground="White" FontSize="13" FontWeight="Bold"/>
+        <Label Grid.Row="2" Grid.Column="4"  Content="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="13" Margin="85 0 0 0" FontWeight="Bold"/>
 
+        <Border Grid.Row="3" Grid.Column="4" Grid.RowSpan="9" BorderThickness="2" BorderBrush="Black" Width="150" Height="Auto">
+            <TextBlock Grid.Column="4" Grid.Row="3" Grid.RowSpan="9" Text="{Binding FiscalBill}" HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Bold" Background="#FFC5C979" Foreground="White" Width="149" Height="Auto"/>
+        </Border>
+
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="Salami" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="2" Grid.Row="3" IsEnabled="{Binding IsEnabled}"  IsChecked="{Binding Salami, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="3" Text="Ham" HorizontalAlignment="Center" FontWeight="Bold"  Foreground="White"/>
+        <CheckBox Grid.Column="3" IsEnabled="{Binding IsEnabled}"  Grid.Row="3"  IsChecked="{Binding Ham, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="4" Text="Chorizo" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="2" Grid.Row="4"  IsEnabled="{Binding IsEnabled}"  IsChecked="{Binding Chorizo, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="4" Text="Ketchup" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="3" Grid.Row="4" IsEnabled="{Binding IsEnabled}"  IsChecked="{Binding Ketchup, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="5" Text="Mayo" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="2" Grid.Row="5" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding Mayo, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="5" Text="Chilly Pepper" HorizontalAlignment="Center"  FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="3" Grid.Row="5" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding ChillyPepper, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="Olives" HorizontalAlignment="Center"  FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="2" Grid.Row="6" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding Olives, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="6" Text="Oregano" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="3" Grid.Row="6" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding Oregano, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="7" Text="Sesame" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="2" Grid.Row="7" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding Sesame, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Button Grid.Row="1" Grid.Column="4" x:Name="btnConfirm" Command="{Binding ConfirmCommand}" Content="Confirm" Width="100" Height="30"/>
+        <Button Grid.Row="1" Grid.Column="5" Command="{Binding QuitCommand}" Content="Quit" Width="50" Height="30"/>
+        <TextBlock Grid.Column="3" Grid.Row="7" Text="Cheese" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+        <CheckBox Grid.Column="3" Grid.Row="7" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding Cheese, UpdateSourceTrigger=PropertyChanged}" 
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="1" Orientation="Horizontal" HorizontalAlignment="Center"  >
+            <Button x:Name="btnCalculate" Command="{Binding CalculateCommand}" Content="Calculate Amount" Width="Auto" Height="30"/>
+        </StackPanel>
     </Grid>
 </Window>
